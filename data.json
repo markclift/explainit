@@ -1,0 +1,29 @@
+{ 
+    "prompt": "Please give me 5 mutually exclusive and collectively exhaustive sub-topics of the topic {topic} and a summary explaining the topic of {topic} to me as if I were {experience} in roughly 100 words. Please do not refer to me as {experience} in your response. If you refer to the sub-topics in your summary, please wrap them in html bold tags. Please return your response to me in a json format as follows: \n\n{ \n\"topic\": \"{topic}\",\n\"summary\": \"xxx\",\n\"sub-topics\": [\n\"xxx\",\n\"xxx\",\n\"xxx\",\n\"xxx\",\n\"xxx\"\n]\n}\n",
+    "experience-levels":[
+        {
+            "level-label": "Pre-school",
+            "level-prompt-text": "a pre-school student"
+        },
+        {
+            "level-label": "High School",
+            "level-prompt-text": "a high school student"
+        },
+        {
+            "level-label": "University",
+            "level-prompt-text": "a University student"
+        },
+        {
+            "level-label": "Expert",
+            "level-prompt-text": "an expert on the topic"
+        }
+    ],
+    "initial-summary": "The world's information is a vast tapestry woven from diverse strands. <b>Natural Sciences and Technology</b> unravel the secrets of the physical realm, while <b>Arts and Humanities</b> express the depth of human emotion and creativity. <b>Social and Political Sciences</b> dissect the complexities of society, while <b>Applied Knowledge and Practical Skills</b> shape the world through specialized expertise. <b>Belief Systems and Philosophy</b> delve into existential questions, offering wisdom and spiritual guidance.",
+    "initial-topics": [
+        "Natural Sciences and Technology",
+        "Arts and Humanities",
+        "Social and Political Sciences",
+        "Applied Knowledge and Practical Skills",
+        "Belief Systems and Philosophy"
+    ]
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 const TopicFreeTextEntry = () => {
-  const { deselectTopics, setCustomTopic, selectedTopicIndex } = useAppContext();
+  const { deselectTopics, setCustomTopic, setIsGenerateDisabled, selectedTopicIndex } = useAppContext();
   const [text, setText] = useState('');
   const [isActive, setIsActive] = useState(false);
 
@@ -14,17 +14,18 @@ const TopicFreeTextEntry = () => {
 
   const handleFocus = () => {
     setIsActive(true);
+    deselectTopics();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-    setCustomTopic(event.target.value);
-    deselectTopics();
+    const value = event.target.value;
+    setText(value);
+    setCustomTopic(value);
   };
 
   return (
     <input
-      className={`w-full p-2 border-2 ${isActive ? 'input-active' : 'border-gray-300'} rounded my-4 ${text ? 'text-black' : 'text-gray-500'}`}
+      className={`w-80 px-4 py-2 text-lg rounded shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 ${isActive ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-white border border-gray-300 hover:bg-gray-100'}`}
       value={text}
       placeholder="Or describe your own topic"
       onFocus={handleFocus}

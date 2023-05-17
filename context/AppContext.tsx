@@ -16,10 +16,15 @@ export const AppProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        setIsGenerateDisabled(
+          selectedTopicIndex === -1 && customTopic.trim() === ''
+        );
+      }, [selectedTopicIndex, customTopic]);
+
     const selectTopic = (index: number) => {
         setSelectedTopicIndex(index);
-        setCustomTopicText(''); // Clear the custom topic when a checkbox group option is selected
-        setIsGenerateDisabled(false);
+        setCustomTopic(''); // Clear the custom topic when a checkbox group option is selected
     }
 
     const deselectTopics = () => {
@@ -28,7 +33,7 @@ export const AppProvider = ({ children }) => {
 
     const setCustomTopic = (topic: string) => {
         setCustomTopicText(topic);
-        setIsGenerateDisabled(topic === '');
+        setIsGenerateDisabled(topic.trim() === ''); // disable generate if the custom topic is empty
     };
 
     const selectExperienceLevel = (index: number) => {

@@ -59,6 +59,7 @@ export const AppProvider = ({ children }) => {
             setError(error.message); // set error state if there's an error
         } finally {
             setIsLoading(false);
+            setCustomTopic(''); // Clear the custom topic text
         }
 
     }

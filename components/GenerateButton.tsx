@@ -5,7 +5,7 @@ const GenerateButton = () => {
 
   return (
     <button
-      className={`w-full py-2 mt-4 font-bold text-white rounded ${isGenerateDisabled || isLoading ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-700'}`}
+      className={`w-full py-3 mt-8 text-lg font-bold text-white rounded shadow-md transition duration-300 ease-in-out transform ${isGenerateDisabled || isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
       onClick={generate}
       disabled={isGenerateDisabled || isLoading}
     >

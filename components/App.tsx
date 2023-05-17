@@ -29,17 +29,14 @@ const App = () => {
     }, [isLoading, percentage]);
 
     return (
-        <div className="flex flex-col min-h-screen relative">
-            <Header />
-            <main className="flex-grow container mx-auto p-4">
-                <h1 className="text-2xl font-bold">Topic: {topic}</h1>
+        <div className="flex flex-col min-h-screen relative px-8">
+            <main className="flex-grow container mx-auto py-6">
+                <h1 className="text-2xl font-bold mb-4">Topic: <span className="bg-blue-200 px-2 rounded">{topic}</span></h1>
                 <Summary />
-                <h3 className="text-2xl font-bold">To explain more, choose a sub-topic from the list below or create your own:</h3>
+                <body className="text-lg mt-2">To dive deeper, choose a sub-topic from the list below or create your own:</body>
                 <TopicSelector />
-                <TopicFreeTextEntry />
                 <ExperienceSlider />
                 <GenerateButton />
-                
                 {error && <div className="text-red-500">{error}</div>}
             </main>
             <Footer />
@@ -52,6 +49,7 @@ const App = () => {
             )}
         </div>
     )
+
 }
 
 export default App

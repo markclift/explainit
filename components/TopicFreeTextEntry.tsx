@@ -29,7 +29,6 @@ const TopicFreeTextEntry = () => {
       placeholder="Or describe your own topic"
       onFocus={handleFocus}
       onChange={handleChange}
-      onBlur={() => setIsCustomTopicActive(false)}
     />
   );
 }

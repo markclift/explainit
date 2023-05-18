@@ -15,6 +15,7 @@ export const AppProvider = ({ children }) => {
     const [isGenerateDisabled, setIsGenerateDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isCustomTopicActive, setIsCustomTopicActive] = useState(false);
 
     useEffect(() => {
         setIsGenerateDisabled(
@@ -22,9 +23,10 @@ export const AppProvider = ({ children }) => {
         );
       }, [selectedTopicIndex, customTopic]);
 
-    const selectTopic = (index: number) => {
+      const selectTopic = (index: number) => {
         setSelectedTopicIndex(index);
         setCustomTopic(''); // Clear the custom topic when a checkbox group option is selected
+        setIsCustomTopicActive(false);
     }
 
     const deselectTopics = () => {
@@ -33,7 +35,8 @@ export const AppProvider = ({ children }) => {
 
     const setCustomTopic = (topic: string) => {
         setCustomTopicText(topic);
-        setIsGenerateDisabled(topic.trim() === ''); // disable generate if the custom topic is empty
+        setIsGenerateDisabled(topic.trim() === '');
+        setIsCustomTopicActive(true);
     };
 
     const selectExperienceLevel = (index: number) => {
@@ -65,7 +68,7 @@ export const AppProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ summary, topic, topics, selectTopic, selectedTopicIndex, customTopic, setCustomTopic, deselectTopics, experienceLevels, selectedExperienceLevel, selectExperienceLevel, generate, isGenerateDisabled, isLoading }}>
+        <AppContext.Provider value={{ summary, topic, topics, selectTopic, selectedTopicIndex, customTopic, setCustomTopic, deselectTopics, experienceLevels, selectedExperienceLevel, selectExperienceLevel, generate, isGenerateDisabled, isLoading, isCustomTopicActive, setIsCustomTopicActive  }}>
             {children}
         </AppContext.Provider>
     );

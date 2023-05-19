@@ -1,35 +1,29 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import styles from '../styles/Summary.module.css';
 
 const Summary = () => {
   const { summary } = useAppContext();
-  const isFirstRender = useRef(true);
-  const [isDataLoaded, setDataLoaded] = useState(false);
+  const [isFirstUpdate, setFirstUpdate] = useState(false);
 
   useEffect(() => {
-    if (summary) {
-      setDataLoaded(true);
+    if (!isFirstUpdate) {
+      setFirstUpdate(true);
+      return;
     }
 
-    if (isDataLoaded && !isFirstRender.current) {
-      const summaryElement = document.querySelector(`.${styles.summaryText}`);
-      summaryElement.classList.add(styles.summaryTextFade);
+    const summaryElement = document.querySelector(`.${styles.summaryText}`);
+    summaryElement.classList.add(styles.summaryTextFade);
 
-      const timer = setTimeout(() => {
-        summaryElement.classList.remove(styles.summaryTextFade);
-      }, 1000);
+    const timer = setTimeout(() => {
+      summaryElement.classList.remove(styles.summaryTextFade);
+    }, 1000);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
 
-    if (isDataLoaded) {
-      isFirstRender.current = false;
-    }
+  }, [summary]);
 
-  }, [summary, isDataLoaded]);
-
-  if (!isDataLoaded) {
+  if (!summary) {
     return null;
   }
 

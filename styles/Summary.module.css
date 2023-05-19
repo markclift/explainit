@@ -1,0 +1,8 @@
+.summaryText {
+    background-color: #ccffcc; /* light pastel green */
+    transition: opacity 1s;
+}
+
+.summaryTextFade {
+    opacity: 0;
+}

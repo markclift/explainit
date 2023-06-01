@@ -28,6 +28,12 @@ const App = () => {
         };
     }, [isLoading, percentage]);
 
+    useEffect(() => {
+        if (!isLoading) {
+            window.scrollTo(0, 0);
+        }
+    }, [isLoading]);
+
     return (
         <div className="flex flex-col min-h-screen relative px-8">
             <main className="flex-grow container mx-auto py-6">

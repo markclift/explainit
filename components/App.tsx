@@ -7,12 +7,15 @@ import TopicSelector from './TopicSelector'
 import ExperienceSlider from './ExperienceSlider'
 import GenerateButton from './GenerateButton'
 import LoadingScreen from './LoadingScreen'
+import { useLockBodyScroll } from 'react-use';
 
 const App = () => {
     const { topic, isLoading, error, topics, selectedTopicIndex } = useAppContext();
     const [currentFactIndex, setCurrentFactIndex] = useState(0);
     const [displayedFact, setDisplayedFact] = useState('');
     const [percentage, setPercentage] = useState(0);
+    
+    useLockBodyScroll(isLoading);  // Lock body scroll when loading
 
     useEffect(() => {
         if (isLoading && topics[selectedTopicIndex]) {
@@ -56,7 +59,7 @@ const App = () => {
     }, [isLoading, percentage]);
 
     useEffect(() => {
-        if (!isLoading) {
+        if (isLoading) {
             window.scrollTo(0, 0);
         }
     }, [isLoading]);

@@ -1,25 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css'; // Import the styles
 import { useAppContext } from '../context/AppContext';
-import Header from './Header'
 import Footer from './Footer'
 import Summary from './Summary'
 import Heading from './Heading'
 import TopicSelector from './TopicSelector'
 import ExperienceSlider from './ExperienceSlider'
 import GenerateButton from './GenerateButton'
+import LoadingScreen from './LoadingScreen'
 
 const App = () => {
-    const { topic, isLoading, error } = useAppContext();
+    const { topic, isLoading, error, topics, selectedTopicIndex } = useAppContext();
+    const [currentFactIndex, setCurrentFactIndex] = useState(0);
+    const [displayedFact, setDisplayedFact] = useState('');
     const [percentage, setPercentage] = useState(0);
+
+    useEffect(() => {
+        if (isLoading && topics[selectedTopicIndex]) {
+            // Initialize with the first fact
+            setCurrentFactIndex(0);
+            setDisplayedFact(topics[selectedTopicIndex]['subtopic-facts'][0]);
+        }
+    }, [isLoading, selectedTopicIndex, topics]);
+
+    useEffect(() => {
+        let factTimer = null;
+        if (isLoading) {
+            factTimer = setInterval(() => {
+                setCurrentFactIndex((prevIndex) => {
+                    const newIndex = (prevIndex + 1) % topics[selectedTopicIndex]['subtopic-facts'].length;
+                    setDisplayedFact(topics[selectedTopicIndex]['subtopic-facts'][newIndex]);
+                    return newIndex;
+                });
+            }, 7000); // Change fact every 7 seconds
+        }
+
+        return () => {
+            if (factTimer) {
+                clearInterval(factTimer);
+            }
+        };
+    }, [isLoading, selectedTopicIndex, topics]);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (isLoading && percentage < 100) {
             timer = setTimeout(() => {
                 setPercentage((prevPercentage) => prevPercentage + 1);
-            }, 220);
+            }, 210); // 21 seconds for the timer to reach 100%
         } else {
             setPercentage(0);
         }
@@ -33,6 +60,8 @@ const App = () => {
             window.scrollTo(0, 0);
         }
     }, [isLoading]);
+
+    const subtopic = selectedTopicIndex >= 0 ? topics[selectedTopicIndex]['subtopic-name'] : '';
 
     return (
         <div className="flex flex-col min-h-screen relative px-8">
@@ -48,11 +77,12 @@ const App = () => {
             </main>
             <Footer />
             {isLoading && (
-                <div className="absolute inset-0 bg-gray-500 bg-opacity-50 z-50 flex items-center justify-center">
-                    <div style={{ width: 100, height: 100 }}>
-                        <CircularProgressbar value={percentage} text={`${percentage}%`} />
-                    </div>
-                </div>
+                <LoadingScreen
+                    percentage={percentage}
+                    displayedFact={displayedFact}
+                    subtopic={subtopic}
+                    currentFactIndex={currentFactIndex}
+                />
             )}
         </div>
     )

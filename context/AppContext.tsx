@@ -6,8 +6,8 @@ const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
     const [summary, setSummary] = useState(initialData['initial-summary']);
-    const [topic, setTopic] = useState('Everything!');
-    const [topics, setTopics] = useState(initialData['initial-topics']);
+    const [topic, setTopic] = useState(initialData['initial-topic']);
+    const [topics, setTopics] = useState(initialData['initial-subtopics']);
     const [selectedTopicIndex, setSelectedTopicIndex] = useState(-1);
     const [customTopic, setCustomTopicText] = useState('');
     const [experienceLevels, setExperienceLevels] = useState(initialData['experience-levels']);
@@ -47,15 +47,15 @@ export const AppProvider = ({ children }) => {
         setIsLoading(true); // Set loading to true before sending request
         setError(null);
 
-        const topic = selectedTopicIndex >= 0 ? topics[selectedTopicIndex] : customTopic;
+        const subtopic = selectedTopicIndex >= 0 ? topics[selectedTopicIndex] : customTopic;
         const experience = experienceLevels[selectedExperienceLevel]['level-prompt-text'];
 
         try {
-            const result = await generateSummaryAndTopics(topic, experience);
+            const result = await generateSummaryAndTopics(subtopic['subtopic-name'], experience);
 
             setTopic(result.topic);
             setSummary(result.summary);
-            setTopics(result['sub-topics']);
+            setTopics(result.subtopics);
             setSelectedTopicIndex(-1); // Deselect the topics
             setCustomTopic(''); // Clear the custom topic text
         } catch (error) {

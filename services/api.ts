@@ -19,7 +19,7 @@ const generateSummaryAndTopics = async (topic: string, experience: string) => {
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: GPT35TurboMessage,
-      max_tokens: 300,
+      max_tokens: 1000,
       temperature: 0,
     });
 

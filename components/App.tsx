@@ -10,7 +10,7 @@ import LoadingScreen from './LoadingScreen'
 import { useLockBodyScroll } from 'react-use';
 
 const App = () => {
-    const { topic, isLoading, error, topics, selectedTopicIndex } = useAppContext();
+    const { topic, isLoading, error, subtopics, facts, selectedTopicIndex, customTopic } = useAppContext();
     const [currentFactIndex, setCurrentFactIndex] = useState(0);
     const [displayedFact, setDisplayedFact] = useState('');
     const [percentage, setPercentage] = useState(0);
@@ -18,20 +18,21 @@ const App = () => {
     useLockBodyScroll(isLoading);  // Lock body scroll when loading
 
     useEffect(() => {
-        if (isLoading && topics[selectedTopicIndex]) {
+        if (isLoading && (subtopics[selectedTopicIndex] || customTopic)) {
             // Initialize with the first fact
             setCurrentFactIndex(0);
-            setDisplayedFact(topics[selectedTopicIndex]['subtopic-facts'][0]);
+            setDisplayedFact(facts[0]);
         }
-    }, [isLoading, selectedTopicIndex, topics]);
+    }, [isLoading, selectedTopicIndex, subtopics, customTopic]);
+    
 
     useEffect(() => {
         let factTimer = null;
         if (isLoading) {
             factTimer = setInterval(() => {
                 setCurrentFactIndex((prevIndex) => {
-                    const newIndex = (prevIndex + 1) % topics[selectedTopicIndex]['subtopic-facts'].length;
-                    setDisplayedFact(topics[selectedTopicIndex]['subtopic-facts'][newIndex]);
+                    const newIndex = (prevIndex + 1) % facts.length;
+                    setDisplayedFact(facts[newIndex]);
                     return newIndex;
                 });
             }, 7000); // Change fact every 7 seconds
@@ -42,7 +43,7 @@ const App = () => {
                 clearInterval(factTimer);
             }
         };
-    }, [isLoading, selectedTopicIndex, topics]);
+    }, [isLoading, selectedTopicIndex, subtopics]);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -64,7 +65,7 @@ const App = () => {
         }
     }, [isLoading]);
 
-    const subtopic = selectedTopicIndex >= 0 ? topics[selectedTopicIndex]['subtopic-name'] : '';
+    const subtopic = selectedTopicIndex >= 0 ? subtopics[selectedTopicIndex] : customTopic;
 
     return (
         <div className="flex flex-col min-h-screen relative px-8">

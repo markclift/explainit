@@ -1,5 +1,5 @@
 {
-    "prompt": "Please give me 5 mutually exclusive and collectively exhaustive sub-topics of the topic {topic} and a summary explaining the topic of {topic} to me as if I were {experience} in roughly 100 words. Please do not refer to me as {experience} in your response. If you refer to the sub-topics in your summary, please wrap them in html bold tags. For each sub-topic, please also give me 3 of the most funny facts you know about the sub-topic. Start your facts with the text: \"Did you know that...\". Please return your response to me in a json format as follows\n\n{ \"topic\": \"{topic}\", \"summary\": \"xxx\", \"subtopics\": [ { \"subtopic-name\": \"xxx\", \"subtopic-facts\": [\"fact 1\", \"fact 2\", \"fact 3\"] }, { \"subtopic-name\": \"xxx\", \"subtopic-facts\": [\"fact 1\", \"fact 2\", \"fact 3\"] }, { \"subtopic-name\": \"xxx\", \"subtopic-facts\": [\"fact 1\", \"fact 2\", \"fact 3\"] }, { \"subtopic-name\": \"xxx\", \"subtopic-facts\": [\"fact 1\", \"fact 2\", \"fact 3\"] }, { \"subtopic-name\": \"xxx\", \"subtopic-facts\": [\"fact 1\", \"fact 2\", \"fact 3\"] } ] }",
+    "prompt": "Please give me 5 mutually exclusive and collectively exhaustive sub-topics of the topic {topic} and a summary explaining the topic of {topic} to me as if I were {experience} in roughly 100 words and 3 of the most funny facts you know about {topic}. Start your facts with the text: \"Did you know that...\". . Please do not refer to me as {experience} in your response. If you refer to the sub-topics in your summary, please wrap them in html bold tags. Please return your response to me in a json format as follows\n\n{ \"topic\": \"{topic}\", \"summary\": \"xxx\", \"facts\": [\"fact 1\", \"fact 2\", \"fact 3\"], \"subtopics\": [ \"xxx\", \"xxx\", \"xxx\", \"xxx\", \"xxx\"] }",
     "experience-levels": [
         {
             "level-label": "Pre-school",
@@ -20,46 +20,16 @@
     ],
     "initial-topic": "Everything",
     "initial-summary": "The world's information is a vast tapestry woven from diverse strands. <b>Natural Sciences and Technology</b> unravel the secrets of the physical realm, while <b>Arts and Humanities</b> express the depth of human emotion and creativity. <b>Social and Political Sciences</b> dissect the complexities of society, while <b>Applied Knowledge and Practical Skills</b> shape the world through specialized expertise. <b>Belief Systems and Philosophy</b> delve into existential questions, offering wisdom and spiritual guidance.",
+    "initial-facts": [
+        "Did you know that the word 'avocado' comes from the Aztec word for testicle? Enjoy your guacamole!",
+        "Did you know that the average cloud weighs about the same as 100 elephants?",
+        "Did you know that the Mona Lisa has no eyebrows? It was fashionable in Renaissance Florence to shave them off!"
+    ],
     "initial-subtopics": [
-        {
-            "subtopic-name": "Natural Sciences and Technology",
-            "subtopic-facts": [
-                "Did you know that bananas are berries, while strawberries are not?",
-                "Did you know that the average cloud weighs about the same as 100 elephants?",
-                "Did you know that the world's smallest computer is smaller than a grain of rice?"
-            ]
-        },
-        {
-            "subtopic-name": "Arts and Humanities",
-            "subtopic-facts": [
-                "Did you know that the word 'avocado' comes from the Aztec word for testicle? Enjoy your guacamole!",
-                "Did you know that the Mona Lisa has no eyebrows? It was fashionable in Renaissance Florence to shave them off!",
-                "Did you know that the shortest war in history was between Britain and Zanzibar in 1896? It lasted only 38 minutes!"
-            ]
-        },
-        {
-            "subtopic-name": "Social and Political Sciences",
-            "subtopic-facts": [
-                "Did you know that Iceland elected a comedian as its mayor? Jón Gnarr ran as a joke and won!",
-                "Did you know that the average person spends six months of their life waiting for red lights to turn green?",
-                "Did you know that there is a town in Norway called Hell? Surprisingly, it freezes over quite frequently!"
-            ]
-        },
-        {
-            "subtopic-name": "Applied Knowledge and Practical Skills",
-            "subtopic-facts": [
-                "Did you know that the microwave was invented accidentally? A scientist noticed a chocolate bar in his pocket melted while working on radar!",
-                "Did you know that bubble wrap was originally intended to be wallpaper? It didn't stick, but it sure popped!",
-                "Did you know that astronauts use tortillas instead of bread for sandwiches? Crumbs in space can be a hazard!"
-            ]
-        },
-        {
-            "subtopic-name": "Belief Systems and Philosophy",
-            "subtopic-facts": [
-                "Did you know that there is a religion called Pastafarianism that worships the Flying Spaghetti Monster?",
-                "Did you know that the philosopher Diogenes lived in a barrel and mocked Alexander the Great? Talk about minimalism!",
-                "Did you know that the philosopher René Descartes believed that animals were automata, like robots? I wonder what his pets thought about that!"
-            ]
-        }
+        "Natural Sciences and Technology",
+        "Arts and Humanities",
+        "Social and Political Sciences",
+        "Applied Knowledge and Practical Skills",
+        "Belief Systems and Philosophy"
     ]
 }

@@ -7,7 +7,8 @@ const AppContext = createContext(null);
 export const AppProvider = ({ children }) => {
     const [summary, setSummary] = useState(initialData['initial-summary']);
     const [topic, setTopic] = useState(initialData['initial-topic']);
-    const [topics, setTopics] = useState(initialData['initial-subtopics']);
+    const [subtopics, setSubTopics] = useState(initialData['initial-subtopics']);
+    const [facts, setFacts] = useState(initialData['initial-facts']);
     const [selectedTopicIndex, setSelectedTopicIndex] = useState(-1);
     const [customTopic, setCustomTopicText] = useState('');
     const [experienceLevels, setExperienceLevels] = useState(initialData['experience-levels']);
@@ -47,15 +48,16 @@ export const AppProvider = ({ children }) => {
         setIsLoading(true); // Set loading to true before sending request
         setError(null);
 
-        const subtopic = selectedTopicIndex >= 0 ? topics[selectedTopicIndex] : customTopic;
+        const subtopic = selectedTopicIndex >= 0 ? subtopics[selectedTopicIndex] : customTopic;
         const experience = experienceLevels[selectedExperienceLevel]['level-prompt-text'];
 
         try {
-            const result = await generateSummaryAndTopics(subtopic['subtopic-name'], experience);
+            const result = await generateSummaryAndTopics(subtopic, experience);
 
             setTopic(result.topic);
             setSummary(result.summary);
-            setTopics(result.subtopics);
+            setSubTopics(result.subtopics);
+            setFacts(result.facts);
             setSelectedTopicIndex(-1); // Deselect the topics
             setCustomTopic(''); // Clear the custom topic text
         } catch (error) {
@@ -68,7 +70,7 @@ export const AppProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ summary, topic, topics, selectTopic, selectedTopicIndex, customTopic, setCustomTopic, deselectTopics, experienceLevels, selectedExperienceLevel, selectExperienceLevel, generate, isGenerateDisabled, isLoading, isCustomTopicActive, setIsCustomTopicActive }}>
+        <AppContext.Provider value={{ summary, topic, subtopics, facts, selectTopic, selectedTopicIndex, customTopic, setCustomTopic, deselectTopics, experienceLevels, selectedExperienceLevel, selectExperienceLevel, generate, isGenerateDisabled, isLoading, isCustomTopicActive, setIsCustomTopicActive }}>
             {children}
         </AppContext.Provider>
     );
